@@ -30,15 +30,9 @@ for (const searchResult of searchResults) {
     `query {
       node(id:"${searchResult.node_id}") {
         ... on PullRequest {
-          number
+          url
           state
           merged
-          repository {
-            owner {
-              login
-            }
-            name
-          }
         }
       }
     }`
@@ -46,23 +40,17 @@ for (const searchResult of searchResults) {
   switch (node.state) {
     case "OPEN":
       summary.open++;
-      signale.info(
-        `${node.repository.owner.login}/${node.repository.name}#${node.number} is open`
-      );
+      signale.info(`${node.url} is open`);
       break;
     case "CLOSED":
       switch (node.merged) {
         case true:
           summary.merged++;
-          signale.success(
-            `${node.repository.owner.login}/${node.repository.name}#${node.number} is merged`
-          );
+          signale.success(`${node.url} is merged`);
           break;
         case false:
           summary.closed++;
-          signale.error(
-            `${node.repository.owner.login}/${node.repository.name}#${node.number} is closed`
-          );
+          signale.error(`${node.url} is closed`);
           break;
       }
       break;
