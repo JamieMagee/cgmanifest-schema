@@ -52,3 +52,12 @@ to:
 ```ts
 result.repository.owner.login
 ```
+
+### How do I track the progress?
+
+There's another script called `track-progress.ts` that allows you to track the status of pull requests created by this script.
+You can run it by running `npm run track-progress`.
+
+### The track progress script isn't showing me any results
+
+Check that the `user:` parameter in the search query used in `track-progress.ts` is the same as the organization you're opening pull requests for.

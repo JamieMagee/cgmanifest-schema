@@ -10,11 +10,14 @@ const octokit = new Octokit({
 });
 const currentUser = await octokit.rest.users.getAuthenticated();
 
-const searchResults = await octokit.rest.search.issuesAndPullRequests({
-  q: `is:pr author:${currentUser.data.login} user:JamieMagee in:title "cgmanifest.json"`,
-  order: "desc",
-  sort: "updated",
-});
+const searchResults = await octokit.paginate(
+  octokit.rest.search.issuesAndPullRequests,
+  {
+    q: `is:pr author:${currentUser.data.login} user:JamieMagee in:title "cgmanifest.json"`,
+    order: "desc",
+    sort: "updated",
+  }
+);
 
 const summary: { merged: number; open: number; closed: number } = {
   merged: 0,
@@ -22,7 +25,7 @@ const summary: { merged: number; open: number; closed: number } = {
   closed: 0,
 };
 
-for (const searchResult of searchResults.data.items) {
+for (const searchResult of searchResults) {
   const { node } = await octokit.graphql<{ node: PullRequest }>(
     `query {
       node(id:"${searchResult.node_id}") {
