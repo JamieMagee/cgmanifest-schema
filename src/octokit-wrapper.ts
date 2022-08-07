@@ -204,6 +204,11 @@ export class OctokitWrapper {
       sha,
       path,
       message: OctokitWrapper.PullRequestTitle,
+      author: {
+        name: "Jamie Magee",
+        email: "jamie.magee@microsoft.com",
+        date: new Date().toISOString(),
+      },
     });
   }
 

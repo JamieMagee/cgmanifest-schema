@@ -10,8 +10,17 @@ const octokitWrapper = await OctokitWrapper.create(
 );
 
 signale.info("Fetching repositories with cgmanifest...");
-const results = await octokitWrapper.getRepositoriesWithCgmanifest();
-signale.info(`Found ${results.length} repositories`);
+let results: RestEndpointMethodTypes["search"]["code"]["response"]["data"]["items"] =
+  [];
+try {
+  results = await octokitWrapper.getRepositoriesWithCgmanifest();
+  signale.info(`Found ${results.length} repositories`);
+} catch (e) {
+  signale.error(
+    "Exceeded a rate limit while fetching repositories. Please try again later."
+  );
+  signale.error(e);
+}
 
 for (const result of results) {
   // Fork the repository
