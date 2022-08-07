@@ -8,7 +8,17 @@ NOTE: This script requires [Node.js 18+](https://nodejs.org/en/download/).
 2. Rename the `.env.sample` file to `.env`
 3. Put your GitHub Personal Access Token in the `GITHUB_TOKEN` environment variable
 
-## Logic
+## FAQ
+
+### Why?
+
+We receive a lot of support request about `cgmanifest.json` files.
+By providing a JSON Schema, it allows users to make sure that their `cgmanifest.json` file is valid, without asking us.
+It also enables intellisense in Visual Studio Code and Visual Studio.
+
+![](./img/cgmanifest-schema.gif)
+
+### What's the logic behind this?
 
 1. Search for any repositories that contain a `cgmanifest.json` file
 2. For each repository:
@@ -24,16 +34,21 @@ NOTE: This script requires [Node.js 18+](https://nodejs.org/en/download/).
     6. Format the `cgmanifest.json` file using `prettier`
     7. Check if the `cgmanifest-schema` branch exists in the fork
         - If yes, delete the existing `cgmanifest-schema` branch
-   8. Create the `cgmanifest-schema` branch in the fork
-   9. Update the `cgmanifest-schema` branch in the fork with the formatted `cgmanifest.json` file
-   10. Create a pull request for the `cgmanifest-schema` branch from the fork
+    8. Create the `cgmanifest-schema` branch in the fork
+    9. Update the `cgmanifest-schema` branch in the fork with the formatted `cgmanifest.json` file
+    10. Create a pull request for the `cgmanifest-schema` branch from the fork
 
-## FAQ
+### How do I create pull requests against the original repository?
 
-### Why?
+Currently, the script opens pull requests against the fork.
+To create pull requests against the original repository you need to change [this line](https://github.com/JamieMagee/cgmanifest-schema/blob/13eedbf5812aa14dd4244c531bbbfe9d608fd240/src/index.ts#L131) from:
 
-We receive a lot of support request about `cgmanifest.json` files.
-By providing a JSON Schema, it allows users to make sure that their `cgmanifest.json` file is valid, without asking us.
-It also enables intellisense in Visual Studio Code and Visual Studio.
+```ts
+fork.data.owner.login
+```
 
-![](./img/cgmanifest-schema.gif)
+to:
+
+```ts
+result.repository.owner.login
+```
