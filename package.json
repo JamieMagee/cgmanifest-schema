@@ -2,6 +2,9 @@
   "name": "cgmanifest-schema",
   "version": "0.0.0-development",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "lint": "eslint .",
     "run": "node --loader ts-node/esm src/index.ts",
