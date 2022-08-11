@@ -7,8 +7,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "run": "node --loader ts-node/esm src/index.ts",
-    "track-progress": "node --loader ts-node/esm src/track-progress.ts"
+    "run": "ts-node-esm src/index.ts",
+    "track-progress": "ts-node-esm src/track-progress.ts"
   },
   "dependencies": {
     "dotenv": "16.0.1",
