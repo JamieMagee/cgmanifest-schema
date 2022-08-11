@@ -2,11 +2,15 @@ import dotenv from "dotenv";
 import { Octokit } from "octokit";
 import type { PullRequest } from "@octokit/graphql-schema";
 import signale from "signale";
+import fetch from "node-fetch";
 
 dotenv.config();
 
 const octokit = new Octokit({
   auth: process.env["GITHUB_TOKEN"],
+  request: {
+    fetch,
+  },
 });
 const currentUser = await octokit.rest.users.getAuthenticated();
 

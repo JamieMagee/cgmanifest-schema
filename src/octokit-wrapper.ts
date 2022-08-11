@@ -19,6 +19,9 @@ export class OctokitWrapper {
   private constructor(token: string) {
     this.octokit = new Octokit({
       auth: token,
+      request: {
+        fetch,
+      },
     });
   }
 
@@ -170,9 +173,6 @@ export class OctokitWrapper {
       owner,
       repo,
       ref: `heads/${OctokitWrapper.BranchName}`,
-      request: {
-        fetch, // workaround due to content-length header mismatch
-      },
     });
   }
 
