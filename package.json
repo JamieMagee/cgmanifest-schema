@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@octokit/graphql-schema": "10.74.2",
-    "@tsconfig/node18-strictest-esm": "1.0.0",
+    "@tsconfig/node18-strictest-esm": "1.0.1",
     "@types/eslint": "8.4.5",
     "@types/node": "16.11.47",
     "@types/prettier": "2.7.0",
