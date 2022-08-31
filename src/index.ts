@@ -91,9 +91,18 @@ for (const result of results) {
     fork.data.name,
     result.path
   );
-  const content = JSON.parse(
-    Buffer.from(cgManifest.content, "base64").toString()
-  );
+  let content: any;
+  try {
+    content = JSON.parse(Buffer.from(cgManifest.content, "base64").toString());
+  } catch (e) {
+    logger.error(`Invalid cgmanifest.json: ${e}`);
+    continue;
+  }
+
+  if (content["$schema"] !== undefined) {
+    logger.info(`Found schema ${content["$schema"]}`);
+    continue;
+  }
 
   // Update cgmanifest.json
   logger.log(`Updating cgmanifest.json`);
