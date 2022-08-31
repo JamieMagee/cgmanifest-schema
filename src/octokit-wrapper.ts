@@ -43,6 +43,7 @@ export class OctokitWrapper {
     return (
       await this.octokit.paginate(this.octokit.rest.search.code, {
         q: `org:${org} filename:cgmanifest.json`,
+        per_page: 100,
       })
     ).sort((a, b) => a.repository.name.localeCompare(b.repository.name));
   }
@@ -122,11 +123,13 @@ export class OctokitWrapper {
     owner: string,
     repo: string
   ): Promise<RestEndpointMethodTypes["pulls"]["get"]["response"]> {
-    const { data } = await this.octokit.rest.pulls.list({
-      owner,
-      repo,
-    });
-    const pull_number = data.find(
+    const pullRequests = await this.octokit.paginate(
+      this.octokit.rest.search.issuesAndPullRequests,
+      {
+        q: `is:pr repo:"${owner}/${repo}" author:${this.getCurrentUser()}`,
+      }
+    );
+    const pull_number = pullRequests.find(
       (pullRequest) =>
         pullRequest.title === OctokitWrapper.PullRequestTitle &&
         pullRequest.user?.login === this.getCurrentUser()
