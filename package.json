@@ -13,7 +13,7 @@
   "dependencies": {
     "dotenv": "16.0.1",
     "node-fetch": "3.2.10",
-    "octokit": "2.0.4",
+    "octokit": "2.0.7",
     "prettier": "2.7.1",
     "prettier-plugin-sort-json": "0.0.2",
     "signale": "1.4.0"
