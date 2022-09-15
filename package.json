@@ -19,7 +19,7 @@
     "signale": "1.4.0"
   },
   "devDependencies": {
-    "@octokit/graphql-schema": "12.4.1",
+    "@octokit/graphql-schema": "12.6.0",
     "@tsconfig/node18-strictest-esm": "1.0.1",
     "@types/eslint": "8.4.6",
     "@types/node": "16.11.58",
